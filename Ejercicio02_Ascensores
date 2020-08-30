@@ -1,0 +1,120 @@
+package ascensor;
+
+//Importaciones
+import javax.swing.*;
+
+//Clase para crear objeto y correr programa
+public class Ascensores {
+    
+    public static void main(String[] args) {
+        
+        //Declarar variables
+        int numero_pisos, numero_sotanos;
+        int piso_actual = 1;
+        String menu;
+        String opciones [] = {"Subir piso", "Piso actual del ascensor", "Bajar piso", 
+                              "Pisos que puede atender el ascensor", "Nuevo ascensor", "Salir"};
+        
+        //Bienvenida a usuario, ingreso de datos y creación de objeto ascensores
+        JOptionPane.showMessageDialog(null, "Bienvenido al ascensor, por favor ingrese la siguiente informacion", "¡Bienvenido!",
+                                      JOptionPane.PLAIN_MESSAGE);
+        numero_pisos = Integer.parseInt(JOptionPane.showInputDialog("Ingrese el numero de pisos que tiene el edificio:"));       
+        numero_sotanos = -Integer.parseInt(JOptionPane.showInputDialog("Ingrese el numero de sotanos (numero positivo) que tiene el edificio:"));
+               
+        Ascensor ascensores = new Ascensor(numero_pisos, numero_sotanos, piso_actual);
+        
+        //Menu principal de opciones
+        do {                        
+            menu = (String) JOptionPane.showInputDialog(null, "Seleccione una opción", "Ascensor", JOptionPane.QUESTION_MESSAGE,
+                    null, opciones, opciones[1]);
+        
+        //Switch para opciones
+            switch (menu) {
+                
+                //Metodo subirPiso
+                case "Subir piso":
+                    
+                    if (ascensores.getPisoActual() >= ascensores.getNumeroPisos()) {
+                        JOptionPane.showMessageDialog(null, "¡Usted se encuentra en el piso " +ascensores.getNumeroPisos()+ ", no puede subir mas!", "Ultimo Piso",
+                                          JOptionPane.ERROR_MESSAGE);
+                    } //Fin de if
+                    else {                        
+                        int arriba = subirPiso(ascensores.getPisoActual(), ascensores.getNumeroPisos());                    
+                        ascensores.setPisoActual(arriba);
+                            if (ascensores.getPisoActual() == 0) {
+                                ascensores.setPisoActual(1);
+                            } //Fin de if
+                    } //Fin de else if
+                    break;
+                    
+                case "Piso actual del ascensor":
+                    JOptionPane.showMessageDialog(null, "Su piso actual es: " + ascensores.getPisoActual(), "Piso actual",
+                                      JOptionPane.PLAIN_MESSAGE);                   
+                    break;
+                    
+                //Metodo bajarPiso
+                case "Bajar piso":
+                    
+                    if (ascensores.getPisoActual() <= ascensores.getNumeroSotanos()) {
+                    JOptionPane.showMessageDialog(null, "¡Usted se encuentra en el piso " +ascensores.getNumeroSotanos()+ ", no puede bajar mas!", "Ultimo Sotano",
+                                      JOptionPane.ERROR_MESSAGE);
+                    } //Fin de if                   
+                    else {
+                        int abajo = bajarPiso(ascensores.getPisoActual(), ascensores.getNumeroSotanos());                    
+                        ascensores.setPisoActual(abajo);
+                            if (ascensores.getPisoActual() == 0) {
+                                ascensores.setPisoActual(-1);
+                            } //Fin de if
+                    } //Fin de else
+                    
+                    break;
+                    
+                //Metodo atenderAscensor
+                case "Pisos que puede atender el ascensor":
+                    Math.abs(ascensores.getNumeroSotanos());
+                    
+                    int atender = atenderAscensor(ascensores.getNumeroPisos(), ascensores.getNumeroSotanos());
+                    JOptionPane.showMessageDialog(null, "Numero de pisos que puede atender el ascensor: "+atender, "Numero de Pisos Totales",
+                                      JOptionPane.PLAIN_MESSAGE);    
+                    break;
+                
+                case "Nuevo ascensor":                    
+                    numero_pisos = Integer.parseInt(JOptionPane.showInputDialog("Ingrese el numero de pisos que tiene el nuevo edificio:"));       
+                    numero_sotanos = -Integer.parseInt(JOptionPane.showInputDialog("Ingrese el numero de sotanos (numero positivo) que tiene el nuevo edificio:")); 
+                    
+                    ascensores.setNumeroPisos(numero_pisos);
+                    ascensores.setNumeroSotanos(numero_sotanos);                    
+                    break;
+            } //Fin de switch
+            
+        } while (!"Salir".equals(menu));
+               
+    } //Fin de main
+    
+    //Metodos
+    static int subirPiso(int piso_actual, int numero_pisos) {
+        if (piso_actual < numero_pisos && piso_actual!=0) {
+            piso_actual += 1;
+        }        
+        else {
+            piso_actual = numero_pisos;
+        }
+        return piso_actual;
+    } //Fin de metodo subirPuso
+    
+    static int bajarPiso(int piso_actual, int numero_sotanos) {
+        if (piso_actual > numero_sotanos && piso_actual!=0) {
+            piso_actual -= 1;
+        }       
+        else {
+            piso_actual = numero_sotanos;
+        }
+        return piso_actual;
+    } //Fin de metodo bajarPiso
+
+    static int atenderAscensor(int numero_pisos, int numero_sotanos) {
+        int suma = numero_pisos + (-numero_sotanos);        
+        return suma;
+    } //Fin de metodo atenderAscensor
+    
+} //Fin de clase Ascensores

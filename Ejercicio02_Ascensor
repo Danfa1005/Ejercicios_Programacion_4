@@ -1,0 +1,45 @@
+package ascensor;
+
+public class Ascensor {
+
+    //Atributos 
+    private int numero_pisos;
+    private int numero_sotanos;
+    private int piso_actual;
+    
+    //Constructores
+    public Ascensor() {        
+    }
+
+    public Ascensor(int numero_pisos, int numero_sotanos, int piso_actual) {
+        this.numero_pisos = numero_pisos;
+        this.numero_sotanos = numero_sotanos;
+        this.piso_actual = piso_actual;
+    }
+    
+    //Operaciones
+    public int getNumeroPisos() {
+        return numero_pisos;
+    }
+    
+    public void setNumeroPisos (int numero_pisos) {
+        this.numero_pisos = numero_pisos;
+    }
+    
+    public int getNumeroSotanos() {
+        return numero_sotanos;
+    }
+    
+    public void setNumeroSotanos (int numero_sotanos) {
+        this.numero_sotanos = numero_sotanos;
+    }
+    
+    public int getPisoActual() {
+        return piso_actual;
+    }
+    
+    public void setPisoActual (int piso_actual) {
+        this.piso_actual = piso_actual;
+    }
+    
+} //Fin de clase
